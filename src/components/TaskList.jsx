@@ -1,5 +1,5 @@
-import { proposalSyntaxPlugins } from '@babel/preset-env/data/shipped-proposals';
 import React from 'react';
+import '../styles/TaskList.css';
 
 const TaskList = (props) => {
     return (  

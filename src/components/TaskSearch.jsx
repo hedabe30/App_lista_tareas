@@ -1,8 +1,13 @@
 import React from 'react';
+import '../styles/TaskSearch.css';
 
 const TaskSearch = () => {
     return (  
-        <input type="text" placeholder="Buscador" />
+        <input 
+            className='TaskSearch'
+            type="text" 
+            placeholder="Buscador" 
+        />
     );
 }
  

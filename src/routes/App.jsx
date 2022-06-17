@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from "../containers/Layout";
+import './App.css';
 import {TaskCounter} from "@components/TaskCounter"
 import {TaskSearch} from "@components/TaskSearch"
 import {TaskList} from "@components/TaskList"
