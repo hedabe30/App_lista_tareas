@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import '../styles/TaskSearch.css';
 
-const TaskSearch = () => {
-
-    const [searchValue, setSearchValue] = useState('');
+const TaskSearch = ({searchValue, setSearchValue}) => {
 
     const onSearchValueChange = (event) => {
         let change = event.target.value;
@@ -12,15 +10,12 @@ const TaskSearch = () => {
     }
 
     return (
-    <React.Fragment> 
         <input 
             className='TaskSearch'
             placeholder="Buscador" 
             value={searchValue}
             onChange={onSearchValueChange}
         />
-        <p>{searchValue}</p>
-    </React.Fragment> 
     )
 }
  
