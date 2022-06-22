@@ -32,6 +32,20 @@ function App() {
         })
     }
 
+    const completeTask = (text) => {
+        const taskIndex = tasks.findIndex(task => task.text === text);       //encontrar el indice de un elñemento en un arreglo
+        const newTasks = [...tasks];
+        newTasks[taskIndex].completed = true;
+        setTasks(newTasks);
+    };
+
+    const deleteTask = (text) => {
+        const taskIndex = tasks.findIndex(task => task.text === text);       //encontrar el indice de un elñemento en un arreglo
+        const newTasks = [...tasks];
+        newTasks.splice(taskIndex, 1);
+        setTasks(newTasks);
+    };
+
     return (
         <React.Fragment>
             <TaskCounter 
@@ -47,7 +61,10 @@ function App() {
                     <TaskItem 
                         key={task.text} 
                         text = {task.text}
-                        completed = {task.completed} />
+                        completed = {task.completed} 
+                        onComplete = {() => completeTask(task.text)}
+                        onDelete = {() => deleteTask(task.text)}
+                        />
                 ))}
             </TaskList>
             <CreateTaskButton />
