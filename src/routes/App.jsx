@@ -1,25 +1,16 @@
 import React, {useState} from 'react';
 import {AppUI} from './AppUI'; 
+import {useLocalStorage} from '../hooks/useLocalStorage';
 
-const defaultTasks = [
-    {text: 'primera tarea', completed: true},
-    {text: 'segunda tarea', completed: false},
-    {text: 'tercera tarea', completed: true},
-    {text: 'cuarta tarea', completed: false}
-];
+// const defaultTasks = [
+//     {text: 'primera tarea', completed: true},
+//     {text: 'segunda tarea', completed: false},
+//     {text: 'tercera tarea', completed: true},
+//     {text: 'cuarta tarea', completed: false}
+// ];
 
 function App() {
-    const localStorageTasks = localStorage.getItem('TASKS_V1');
-    let parsedTasks;
-
-    if(!localStorageTasks) {
-        localStorage.setItem('TASKS_V1', JSON.stringify([]));                   //JSON.stringify() psa un objeto o arreglo a texto plano
-        parsedTasks = [];
-    }else {
-        parsedTasks = JSON.parse(localStorageTasks)                             //Pasa texto plano a un objeto
-    }
-
-    const [tasks, setTasks] = useState(parsedTasks);
+    const [tasks, saveTasks] = useLocalStorage('TASKS_V1', []);
     
     const completedTasks = tasks.filter(task => !!task.completed).length;
     const totalTasks = tasks.length;
@@ -35,13 +26,6 @@ function App() {
             const searchedText = searchValue.toLowerCase();
             return taskText.includes(searchedText);
         })
-    }
-
-    const saveTasks = (newTasks) => {
-        const stringifiedTasks = JSON.stringify(newTasks);
-        localStorage.setItem('TASKS_V1', stringifiedTasks);
-        setTasks(newTasks);
-
     }
 
     const completeTask = (text) => {
