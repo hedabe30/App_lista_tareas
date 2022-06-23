@@ -9,7 +9,17 @@ const defaultTasks = [
 ];
 
 function App() {
-    const [tasks, setTasks] = useState(defaultTasks);
+    const localStorageTasks = localStorage.getItem('TASKS_V1');
+    let parsedTasks;
+
+    if(!localStorageTasks) {
+        localStorage.setItem('TASKS_V1', JSON.stringify([]));                   //JSON.stringify() psa un objeto o arreglo a texto plano
+        parsedTasks = [];
+    }else {
+        parsedTasks = JSON.parse(localStorageTasks)                             //Pasa texto plano a un objeto
+    }
+
+    const [tasks, setTasks] = useState(parsedTasks);
     
     const completedTasks = tasks.filter(task => !!task.completed).length;
     const totalTasks = tasks.length;
@@ -27,18 +37,25 @@ function App() {
         })
     }
 
+    const saveTasks = (newTasks) => {
+        const stringifiedTasks = JSON.stringify(newTasks);
+        localStorage.setItem('TASKS_V1', stringifiedTasks);
+        setTasks(newTasks);
+
+    }
+
     const completeTask = (text) => {
         const taskIndex = tasks.findIndex(task => task.text === text);       //encontrar el indice de un elñemento en un arreglo
         const newTasks = [...tasks];
         newTasks[taskIndex].completed = true;
-        setTasks(newTasks);
+        saveTasks(newTasks);
     };
 
     const deleteTask = (text) => {
         const taskIndex = tasks.findIndex(task => task.text === text);       //encontrar el indice de un elñemento en un arreglo
         const newTasks = [...tasks];
         newTasks.splice(taskIndex, 1);
-        setTasks(newTasks);
+        saveTasks(newTasks);
     };
 
     return (
