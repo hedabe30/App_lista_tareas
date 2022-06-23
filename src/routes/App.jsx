@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import './App.css';
-import {TaskCounter} from "@components/TaskCounter"
-import {TaskSearch} from "@components/TaskSearch"
-import {TaskList} from "@components/TaskList"
-import {TaskItem} from "@components/TaskItem"
-import {CreateTaskButton} from '@components/CreateTaskButton'
+import {AppUI} from './AppUI'; 
 
 const defaultTasks = [
     {text: 'primera tarea', completed: true},
@@ -47,28 +42,15 @@ function App() {
     };
 
     return (
-        <React.Fragment>
-            <TaskCounter 
-                completed = {completedTasks}
-                total = {totalTasks}
-            />
-            <TaskSearch 
-                searchValue = {searchValue}
-                setSearchValue = {setSearchValue}
-            />
-            <TaskList>
-                {searchedTasks.map( task => (
-                    <TaskItem 
-                        key={task.text} 
-                        text = {task.text}
-                        completed = {task.completed} 
-                        onComplete = {() => completeTask(task.text)}
-                        onDelete = {() => deleteTask(task.text)}
-                        />
-                ))}
-            </TaskList>
-            <CreateTaskButton />
-        </React.Fragment>
+        <AppUI 
+            completedTasks = {completedTasks}
+            totalTasks = {totalTasks}
+            searchValue = {searchValue}
+            setSearchValue = {setSearchValue}
+            searchedTasks = {searchedTasks}
+            completeTask = {completeTask}
+            deleteTask = {deleteTask}
+        />
     );
 }
 
