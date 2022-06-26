@@ -7,6 +7,8 @@ import {CreateTaskButton} from '@components/CreateTaskButton'
 import './App.css';
 
 const AppUI = ({
+    loading,
+    error,
     completedTasks,
     totalTasks,
     searchValue,
@@ -26,6 +28,10 @@ const AppUI = ({
             setSearchValue = {setSearchValue}
         />
         <TaskList>
+            {error && <p>Hubo un error...</p>}
+            {loading && <p>Estamos cargando...</p>}
+            {(!loading && !searchedTasks.length) && <p>Crea tu primera tarea</p>}
+
             {searchedTasks.map( task => (
                 <TaskItem 
                     key={task.text} 

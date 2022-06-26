@@ -10,7 +10,12 @@ import {useLocalStorage} from '../hooks/useLocalStorage';
 // ];
 
 function App() {
-    const [tasks, saveTasks] = useLocalStorage('TASKS_V1', []);
+    const {
+            item: tasks, 
+            saveItem: saveTasks, 
+            loading,
+            error,
+        } = useLocalStorage('TASKS_V1', []);
     
     const completedTasks = tasks.filter(task => !!task.completed).length;
     const totalTasks = tasks.length;
@@ -43,7 +48,9 @@ function App() {
     };
 
     return (
-        <AppUI 
+        <AppUI
+            loading = {loading}
+            error = {error}
             completedTasks = {completedTasks}
             totalTasks = {totalTasks}
             searchValue = {searchValue}
